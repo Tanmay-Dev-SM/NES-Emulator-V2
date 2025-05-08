@@ -141,8 +141,8 @@ private:
 #endif
 		DrawSprite(0, 0, &nes.ppu.GetScreen(), 2);
 		return true;
-			}
-		};
+	}
+};
 
 int main()
 {
@@ -158,7 +158,7 @@ int main()
 
 	std::cout << "Select a ROM to play:\n";
 	std::cout << "Put the number and press \"enter key\" to load\n";
-	std::cout << "  SPACE = Pause/Run | R = Reset | Q = Quit\n\n";
+	std::cout << "  SPACE = Pause/Run | R = Reset | esc = Quit\n\n";
 	for (size_t i = 0; i < romList.size(); ++i)
 		std::cout << i + 1 << ". " << romList[i] << "\n";
 
