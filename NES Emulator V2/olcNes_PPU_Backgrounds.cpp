@@ -15,7 +15,7 @@ class Demo_olc2C02 : public olc::PixelGameEngine
 {
 public:
 	Demo_olc2C02() {
-		sAppName = "olc2C02 Demonstration";
+		sAppName = "NES Emulator";
 	}
 
 	void SetCart(const std::shared_ptr<Cartridge>& selectedCart) {
@@ -60,7 +60,10 @@ private:
 	bool OnUserCreate()
 	{
 		if (!cart || !cart->ImageValid())
+		{
+			std::cerr << "Failed to load cartridge.\n";
 			return false;
+		}
 
 		nes.insertCartridge(cart);
 		mapAsm = nes.cpu.disassemble(0x0000, 0xFFFF);
@@ -138,8 +141,8 @@ private:
 #endif
 		DrawSprite(0, 0, &nes.ppu.GetScreen(), 2);
 		return true;
-	}
-};
+			}
+		};
 
 int main()
 {
@@ -166,7 +169,7 @@ int main()
 		return 1;
 	}
 
-	std::string selectedRom = "../" + romList[choice - 1] + ".nes";
+	std::string selectedRom = "roms/" + romList[choice - 1] + ".nes";
 	std::cout << "\nLaunching \"" << romList[choice - 1] << "\"...\n";
 
 	// Ask for fullscreen
