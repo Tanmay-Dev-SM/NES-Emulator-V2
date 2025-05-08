@@ -35,7 +35,7 @@ public:
 
 private:
 
-	union
+	union PPUSTATUS
 	{
 		struct
 		{
@@ -48,7 +48,7 @@ private:
 		uint8_t reg;
 	} status;
 
-	union
+	union PPUMASK
 	{
 		struct
 		{
@@ -111,6 +111,7 @@ private:
 	// Pixel "dot" position information
 	int16_t scanline = 0;
 	int16_t cycle = 0;
+	bool odd_frame = false;
 
 	// Background rendering
 	uint8_t bg_next_tile_id = 0x00;

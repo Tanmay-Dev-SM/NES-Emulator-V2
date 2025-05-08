@@ -395,7 +395,7 @@ uint8_t ppu2C02::ppuRead(uint16_t addr, bool rdonly)
 	{
 		addr &= 0x0FFF;
 
-		if (cart->mirror == Cartridge::MIRROR::VERTICAL)
+		if (cart->Mirror() == MIRROR::VERTICAL)
 		{
 			// Vertical
 			if (addr >= 0x0000 && addr <= 0x03FF)
@@ -407,7 +407,7 @@ uint8_t ppu2C02::ppuRead(uint16_t addr, bool rdonly)
 			if (addr >= 0x0C00 && addr <= 0x0FFF)
 				data = tblName[1][addr & 0x03FF];
 		}
-		else if (cart->mirror == Cartridge::MIRROR::HORIZONTAL)
+		else if (cart->Mirror() == MIRROR::HORIZONTAL)
 		{
 			// Horizontal
 			if (addr >= 0x0000 && addr <= 0x03FF)
@@ -447,7 +447,7 @@ void ppu2C02::ppuWrite(uint16_t addr, uint8_t data)
 	else if (addr >= 0x2000 && addr <= 0x3EFF)
 	{
 		addr &= 0x0FFF;
-		if (cart->mirror == Cartridge::MIRROR::VERTICAL)
+		if (cart->Mirror() == MIRROR::VERTICAL)
 		{
 			// Vertical
 			if (addr >= 0x0000 && addr <= 0x03FF)
@@ -459,7 +459,7 @@ void ppu2C02::ppuWrite(uint16_t addr, uint8_t data)
 			if (addr >= 0x0C00 && addr <= 0x0FFF)
 				tblName[1][addr & 0x03FF] = data;
 		}
-		else if (cart->mirror == Cartridge::MIRROR::HORIZONTAL)
+		else if (cart->Mirror() == MIRROR::HORIZONTAL)
 		{
 			// Horizontal
 			if (addr >= 0x0000 && addr <= 0x03FF)
@@ -1085,11 +1085,6 @@ void ppu2C02::clock()
 					}
 				}
 
-				// Phew... XD I'm absolutely certain you can use some fantastic bit
-				// manipulation to reduce all of that to a few one liners, but in this
-				// form it's easy to see the processes required for the different
-				// sizes and vertical orientations
-
 				// Hi bit plane equivalent is always offset by 8 bytes from lo bit plane
 				sprite_pattern_addr_hi = sprite_pattern_addr_lo + 8;
 
@@ -1313,6 +1308,13 @@ void ppu2C02::clock()
 
 	// Advance renderer - it never stops, it's relentless
 	cycle++;
+
+	if (mask.render_background || mask.render_sprites)
+		if (cycle == 260 && scanline < 240)
+		{
+			cart->GetMapper()->scanline();
+		}
+
 	if (cycle >= 341)
 	{
 		cycle = 0;
