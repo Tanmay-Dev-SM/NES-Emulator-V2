@@ -2,8 +2,8 @@
 #include <cstdint>
 #include <array>
 
-#include "olc6502.h"
-#include "olc2C02.h"
+#include "cpu6502.h"
+#include "ppu2C02.h"
 #include "Cartridge.h"
 
 class Bus
@@ -27,6 +27,14 @@ public:
 private:
 	uint32_t nSystemClockCounter = 0;
 	uint8_t controller_state[2];
+
+private:
+	uint8_t dma_page = 0x00;
+	uint8_t dma_addr = 0x00;
+	uint8_t dma_data = 0x00;
+
+	bool dma_dummy = true;
+	bool dma_transfer = false;
 
 public:
 	void insertCartridge(const std::shared_ptr<Cartridge>& cartridge);

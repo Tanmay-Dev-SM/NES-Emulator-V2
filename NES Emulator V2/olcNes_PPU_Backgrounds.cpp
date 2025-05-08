@@ -2,7 +2,7 @@
 #include <sstream>
 
 #include "Bus.h"
-#include "olc6502.h"
+#include "cpu6502.h"
 
 #define OLC_PGE_APPLICATION
 #include "olcPixelGameEngine.h"
@@ -123,20 +123,20 @@ private:
 	{
 		Clear(olc::DARK_BLUE);
 
-		// Sneaky peek of controller input in next video! ;P
+		//--Ordering Matters for controller it uses PISO (Parllel In Serial Out)
 		nes.controller[0] = 0x00;
-		nes.controller[0] |= GetKey(olc::Key::X).bHeld ? 0x80 : 0x00;
-		nes.controller[0] |= GetKey(olc::Key::Z).bHeld ? 0x40 : 0x00;
-		nes.controller[0] |= GetKey(olc::Key::A).bHeld ? 0x20 : 0x00;
-		nes.controller[0] |= GetKey(olc::Key::S).bHeld ? 0x10 : 0x00;
-		nes.controller[0] |= GetKey(olc::Key::UP).bHeld ? 0x08 : 0x00;
-		nes.controller[0] |= GetKey(olc::Key::DOWN).bHeld ? 0x04 : 0x00;
-		nes.controller[0] |= GetKey(olc::Key::LEFT).bHeld ? 0x02 : 0x00;
-		nes.controller[0] |= GetKey(olc::Key::RIGHT).bHeld ? 0x01 : 0x00;
+		nes.controller[0] |= GetKey(olc::Key::X).bHeld ? 0x80 : 0x00;//--A
+		nes.controller[0] |= GetKey(olc::Key::Z).bHeld ? 0x40 : 0x00;//--B
+		nes.controller[0] |= GetKey(olc::Key::A).bHeld ? 0x20 : 0x00;//--Select
+		nes.controller[0] |= GetKey(olc::Key::S).bHeld ? 0x10 : 0x00;//--Start
+		nes.controller[0] |= GetKey(olc::Key::UP).bHeld ? 0x08 : 0x00;//--UP
+		nes.controller[0] |= GetKey(olc::Key::DOWN).bHeld ? 0x04 : 0x00;//--Down
+		nes.controller[0] |= GetKey(olc::Key::LEFT).bHeld ? 0x02 : 0x00;//--Left
+		nes.controller[0] |= GetKey(olc::Key::RIGHT).bHeld ? 0x01 : 0x00;//--Right
 
-		if (GetKey(olc::Key::SPACE).bPressed) bEmulationRun = !bEmulationRun;
-		if (GetKey(olc::Key::R).bPressed) nes.reset();
-		if (GetKey(olc::Key::P).bPressed) (++nSelectedPalette) &= 0x07;
+		if (GetKey(olc::Key::SPACE).bPressed) bEmulationRun = !bEmulationRun;//--Start/Stop Emulator
+		if (GetKey(olc::Key::R).bPressed) nes.reset();//--Reset
+		if (GetKey(olc::Key::P).bPressed) (++nSelectedPalette) &= 0x07;//--Change the palette
 
 		if (bEmulationRun)
 		{
@@ -175,7 +175,16 @@ private:
 		}
 
 		DrawCpu(516, 2);
-		DrawCode(516, 72, 26);
+		//DrawCode(516, 72, 26); --It display the dissasmbely of the code
+
+		for (int i = 0; i < 26; i++)
+		{
+			std::string s = hex(i, 2) + ": (" + std::to_string(nes.ppu.pOAM[i * 4 + 3])
+				+ ", " + std::to_string(nes.ppu.pOAM[i * 4 + 0]) + ") "
+				+ "ID: " + hex(nes.ppu.pOAM[i * 4 + 1], 2) +
+				+" AT: " + hex(nes.ppu.pOAM[i * 4 + 2], 2);
+			DrawString(516, 72 + i * 10, s);
+		}
 
 		// Draw Palettes & Pattern Tables ==============================================
 		const int nSwatchSize = 6;
