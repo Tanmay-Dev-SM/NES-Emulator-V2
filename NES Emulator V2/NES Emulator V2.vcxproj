@@ -131,8 +131,8 @@
     <ClCompile Include="Cartridge.cpp" />
     <ClCompile Include="Mapper.cpp" />
     <ClCompile Include="Mapper_000.cpp" />
-    <ClCompile Include="olc2C02.cpp" />
-    <ClCompile Include="olc6502.cpp" />
+    <ClCompile Include="ppu2C02.cpp" />
+    <ClCompile Include="cpu6502.cpp" />
     <ClCompile Include="olcNes_PPU_Backgrounds.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -140,8 +140,8 @@
     <ClInclude Include="Cartridge.h" />
     <ClInclude Include="Mapper.h" />
     <ClInclude Include="Mapper_000.h" />
-    <ClInclude Include="olc2C02.h" />
-    <ClInclude Include="olc6502.h" />
+    <ClInclude Include="ppu2C02.h" />
+    <ClInclude Include="cpu6502.h" />
     <ClInclude Include="olcPixelGameEngine.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

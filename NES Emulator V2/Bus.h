@@ -14,8 +14,8 @@ public:
 
 public: // Devices on Main Bus
 
-	olc6502 cpu;
-	olc2C02 ppu;
+	cpu6502 cpu;
+	ppu2C02 ppu;
 	std::shared_ptr<Cartridge> cart;
 	uint8_t cpuRam[2048];
 	uint8_t controller[2];

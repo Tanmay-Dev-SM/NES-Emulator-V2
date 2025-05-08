@@ -1,6 +1,6 @@
 #include "olc2C02.h"
 
-olc2C02::olc2C02()
+ppu2C02::ppu2C02()
 {
 	//--All the the possible color combination that the NES support
 	palScreen[0x00] = olc::Pixel(84, 84, 84);
@@ -78,7 +78,7 @@ olc2C02::olc2C02()
 	sprPatternTable[1] = new olc::Sprite(128, 128);
 }
 
-olc2C02::~olc2C02()
+ppu2C02::~ppu2C02()
 {
 	delete sprScreen;
 	delete sprNameTable[0];
@@ -87,13 +87,13 @@ olc2C02::~olc2C02()
 	delete sprPatternTable[1];
 }
 
-olc::Sprite& olc2C02::GetScreen()
+olc::Sprite& ppu2C02::GetScreen()
 {
 	// Simply returns the current sprite holding the rendered screen
 	return *sprScreen;
 }
 
-olc::Sprite& olc2C02::GetPatternTable(uint8_t i, uint8_t palette)
+olc::Sprite& ppu2C02::GetPatternTable(uint8_t i, uint8_t palette)
 {
 	// This function draw the CHR ROM for a given pattern table into
 	// an olc::Sprite, using a specified palette. Pattern tables consist
@@ -183,7 +183,7 @@ olc::Sprite& olc2C02::GetPatternTable(uint8_t i, uint8_t palette)
 	return *sprPatternTable[i];
 }
 
-olc::Pixel& olc2C02::GetColourFromPaletteRam(uint8_t palette, uint8_t pixel)
+olc::Pixel& ppu2C02::GetColourFromPaletteRam(uint8_t palette, uint8_t pixel)
 {
 	// This is a convenience function that takes a specified palette and pixel
 	// index and returns the appropriate screen colour.
@@ -197,13 +197,13 @@ olc::Pixel& olc2C02::GetColourFromPaletteRam(uint8_t palette, uint8_t pixel)
 	// will map the address onto the seperate small RAM attached to the PPU bus.
 }
 
-olc::Sprite& olc2C02::GetNameTable(uint8_t i)
+olc::Sprite& ppu2C02::GetNameTable(uint8_t i)
 {
 	// As of now unused, but a placeholder for nametable visualisation in the future
 	return *sprNameTable[i];
 }
 
-uint8_t olc2C02::cpuRead(uint16_t addr, bool rdonly)
+uint8_t ppu2C02::cpuRead(uint16_t addr, bool rdonly)
 {
 	uint8_t data = 0x00;
 
@@ -304,7 +304,7 @@ uint8_t olc2C02::cpuRead(uint16_t addr, bool rdonly)
 	return data;
 }
 
-void olc2C02::cpuWrite(uint16_t addr, uint8_t data)
+void ppu2C02::cpuWrite(uint16_t addr, uint8_t data)
 {
 	switch (addr)
 	{
@@ -373,7 +373,7 @@ void olc2C02::cpuWrite(uint16_t addr, uint8_t data)
 	}
 }
 
-uint8_t olc2C02::ppuRead(uint16_t addr, bool rdonly)
+uint8_t ppu2C02::ppuRead(uint16_t addr, bool rdonly)
 {
 	uint8_t data = 0x00;
 	addr &= 0x3FFF;
@@ -429,7 +429,7 @@ uint8_t olc2C02::ppuRead(uint16_t addr, bool rdonly)
 	return data;
 }
 
-void olc2C02::ppuWrite(uint16_t addr, uint8_t data)
+void ppu2C02::ppuWrite(uint16_t addr, uint8_t data)
 {
 	addr &= 0x3FFF;
 
@@ -479,12 +479,12 @@ void olc2C02::ppuWrite(uint16_t addr, uint8_t data)
 	}
 }
 
-void olc2C02::ConnectCartridge(const std::shared_ptr<Cartridge>& cartridge)
+void ppu2C02::ConnectCartridge(const std::shared_ptr<Cartridge>& cartridge)
 {
 	this->cart = cartridge;
 }
 
-void olc2C02::reset()
+void ppu2C02::reset()
 {
 	fine_x = 0x00;
 	address_latch = 0x00;
@@ -506,7 +506,7 @@ void olc2C02::reset()
 	tram_addr.reg = 0x0000;
 }
 
-void olc2C02::clock()
+void ppu2C02::clock()
 {
 	// As we progress through scanlines and cycles, the PPU is effectively
 	// a state machine going through the motions of fetching background

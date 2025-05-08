@@ -53,14 +53,14 @@ private:
 	{
 		std::string status = "STATUS: ";
 		DrawString(x, y, "STATUS:", olc::WHITE);
-		DrawString(x + 64, y, "N", nes.cpu.status & olc6502::N ? olc::GREEN : olc::RED);
-		DrawString(x + 80, y, "V", nes.cpu.status & olc6502::V ? olc::GREEN : olc::RED);
-		DrawString(x + 96, y, "-", nes.cpu.status & olc6502::U ? olc::GREEN : olc::RED);
-		DrawString(x + 112, y, "B", nes.cpu.status & olc6502::B ? olc::GREEN : olc::RED);
-		DrawString(x + 128, y, "D", nes.cpu.status & olc6502::D ? olc::GREEN : olc::RED);
-		DrawString(x + 144, y, "I", nes.cpu.status & olc6502::I ? olc::GREEN : olc::RED);
-		DrawString(x + 160, y, "Z", nes.cpu.status & olc6502::Z ? olc::GREEN : olc::RED);
-		DrawString(x + 178, y, "C", nes.cpu.status & olc6502::C ? olc::GREEN : olc::RED);
+		DrawString(x + 64, y, "N", nes.cpu.status & cpu6502::N ? olc::GREEN : olc::RED);
+		DrawString(x + 80, y, "V", nes.cpu.status & cpu6502::V ? olc::GREEN : olc::RED);
+		DrawString(x + 96, y, "-", nes.cpu.status & cpu6502::U ? olc::GREEN : olc::RED);
+		DrawString(x + 112, y, "B", nes.cpu.status & cpu6502::B ? olc::GREEN : olc::RED);
+		DrawString(x + 128, y, "D", nes.cpu.status & cpu6502::D ? olc::GREEN : olc::RED);
+		DrawString(x + 144, y, "I", nes.cpu.status & cpu6502::I ? olc::GREEN : olc::RED);
+		DrawString(x + 160, y, "Z", nes.cpu.status & cpu6502::Z ? olc::GREEN : olc::RED);
+		DrawString(x + 178, y, "C", nes.cpu.status & cpu6502::C ? olc::GREEN : olc::RED);
 		DrawString(x, y + 10, "PC: $" + hex(nes.cpu.pc, 4));
 		DrawString(x, y + 20, "A: $" + hex(nes.cpu.a, 2) + "  [" + std::to_string(nes.cpu.a) + "]");
 		DrawString(x, y + 30, "X: $" + hex(nes.cpu.x, 2) + "  [" + std::to_string(nes.cpu.x) + "]");

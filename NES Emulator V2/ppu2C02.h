@@ -6,11 +6,11 @@
 
 #include "Cartridge.h"
 
-class olc2C02
+class ppu2C02
 {
 public:
-	olc2C02();
-	~olc2C02();
+	ppu2C02();
+	~ppu2C02();
 
 private:
 	uint8_t     tblName[2][1024];

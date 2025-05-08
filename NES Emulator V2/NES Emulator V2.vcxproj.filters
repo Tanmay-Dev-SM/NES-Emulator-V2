@@ -27,10 +27,10 @@
     <ClCompile Include="Mapper_000.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="olc2C02.cpp">
+    <ClCompile Include="ppu2C02.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="olc6502.cpp">
+    <ClCompile Include="cpu6502.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="olcNes_PPU_Backgrounds.cpp">
@@ -50,10 +50,10 @@
     <ClInclude Include="Mapper_000.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="olc2C02.h">
+    <ClInclude Include="ppu2C02.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="olc6502.h">
+    <ClInclude Include="cpu6502.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="olcPixelGameEngine.h">
