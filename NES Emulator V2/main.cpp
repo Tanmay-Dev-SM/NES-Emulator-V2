@@ -11,10 +11,10 @@
 
 //#define DEBUG_UI  // Uncomment to enable debug UI
 
-class Demo_olc2C02 : public olc::PixelGameEngine
+class NES_Main : public olc::PixelGameEngine
 {
 public:
-	Demo_olc2C02() {
+	NES_Main() {
 		sAppName = "NES Emulator";
 	}
 
@@ -147,28 +147,32 @@ private:
 int main()
 {
 	std::vector<std::string> romList = {
-		"Adventure Island (USA)", "Adventure Island II (USA)", "Balloon Fight (USA)",
-		"Contra (USA)", "DonkeyKong", "Dragon Ball Z - Super Butouden 2 (FR)",
-		"DuckTales (USA)", "Excitebike (USA) (e-Reader Edition)", "Ice Climber (Japan) (En)",
-		"Kirby's Adventure (USA)", "Kung Fu (Japan, USA) (En)", "Mega Man 2 (USA)",
-		"nestest", "Ninja Gaiden III - The Ancient Ship of Doom (USA)", "Prince of Persia (USA)",
-		"Pro Wrestling (USA)", "Spider-Man - Return of the Sinister Six (USA)",
-		"Super Mario Bros. (World)", "Top Gun (USA)"
+	"Adventure Island (USA)", "Adventure Island II (USA)", "Balloon Fight (USA)",
+	"Contra (USA)", "DonkeyKong", "Dragon Ball Z - Super Butouden 2 (FR)",
+	"DuckTales (USA)", "Excitebike (USA) (e-Reader Edition)", "Ice Climber (Japan) (En)",
+	"Kirby's Adventure (USA)", "Kung Fu (Japan, USA) (En)", "Mega Man 2 (USA)",
+	"nestest", "Ninja Gaiden III - The Ancient Ship of Doom (USA)", "Prince of Persia (USA)",
+	"Pro Wrestling (USA)", "Spider-Man - Return of the Sinister Six (USA)",
+	"Super Mario Bros. (World)", "Top Gun (USA)"
 	};
 
 	std::cout << "Select a ROM to play:\n";
 	std::cout << "Put the number and press \"enter key\" to load\n";
 	std::cout << "  SPACE = Pause/Run | R = Reset | esc = Quit\n\n";
+
 	for (size_t i = 0; i < romList.size(); ++i)
 		std::cout << i + 1 << ". " << romList[i] << "\n";
 
 	int choice = 0;
 	std::cin >> choice;
-	if (choice < 1 || choice >(int)romList.size()) {
+
+	// Validate user input
+	if (choice < 1 || choice > static_cast<int>(romList.size())) {
 		std::cerr << "Invalid choice.\n";
 		return 1;
 	}
 
+	// Safe ROM selection
 	std::string selectedRom = "roms/" + romList[choice - 1] + ".nes";
 	std::cout << "\nLaunching \"" << romList[choice - 1] << "\"...\n";
 
@@ -183,7 +187,8 @@ int main()
 	std::cout << "  Arrow Keys = D-Pad\n";
 	std::cout << "  SPACE = Pause/Run | R = Reset\n\n";
 
-	Demo_olc2C02 demo;
+	// Launch emulator
+	NES_Main demo;
 	demo.SetCart(std::make_shared<Cartridge>(selectedRom));
 
 #ifdef DEBUG_UI

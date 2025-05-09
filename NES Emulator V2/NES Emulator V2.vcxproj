@@ -138,7 +138,7 @@
     <ClCompile Include="Mapper_066.cpp" />
     <ClCompile Include="ppu2C02.cpp" />
     <ClCompile Include="cpu6502.cpp" />
-    <ClCompile Include="olcNes_PPU_Backgrounds.cpp" />
+    <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Bus.h" />

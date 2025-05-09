@@ -33,7 +33,7 @@
     <ClCompile Include="cpu6502.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="olcNes_PPU_Backgrounds.cpp">
+    <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Mapper_001.cpp">
